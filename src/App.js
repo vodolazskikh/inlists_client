@@ -1,26 +1,19 @@
 import React, { useEffect } from "react";
-import { vkAuth } from "./config/vkAuth";
+import { vkAuth, apiUrl } from "./config";
 import "./App.css";
 
 function App() {
   function authMe() {
     window.location = `${vkAuth.url}authorize?client_id=${vkAuth.client_id}&redirect_uri=${vkAuth.redirect_uri}`;
   }
-
+  console.log("process.env.NODE_ENV", process.env);
   useEffect(() => {
-    const redirectedFromToken = window.location.href.includes("user_id");
     const redirectedFromAuth = window.location.href.includes("authme");
-    console.log("lol", window.location);
-
-    if (redirectedFromToken) {
-      console.log("редирект с токеном");
-      window.location = "http://inlists.ru";
-    }
-
     if (redirectedFromAuth) {
       const code = window.location.href.split("code=")[1];
-      const tokenUrl = `${vkAuth.url}access_token?client_id=${vkAuth.client_id}&redirect_uri=${vkAuth.redirect_uri}&code=${code}&client_secret=${process.env.REACT_APP_VK_SECRET}`;
-      window.location = tokenUrl;
+      fetch(`${apiUrl}/token?code=${code}`).then((data) =>
+        console.log(data.text())
+      );
     }
   }, [window.location.href]);
 
