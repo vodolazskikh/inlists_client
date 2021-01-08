@@ -1,11 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { FC, memo, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { openPopup } from "state/actions/popup";
 import { generateUuid } from "utils/generateUuid";
 import { apiUrl, vkAuth } from "config";
-import { User as UserType } from "types/user";
+import { AppState } from "types/state";
+import { getUserInfo } from "state/actions/user";
 
 interface Props {
   isInUserProfile?: boolean;
@@ -14,7 +15,7 @@ interface Props {
 export const User: FC<Props> = memo(({ isInUserProfile }) => {
   const [token, setToken] = useState(localStorage.getItem("vk_token"));
   const [userId, setUserId] = useState(localStorage.getItem("vk_user_id"));
-  const [user, setUser] = useState<undefined | UserType>(undefined);
+  const user = useSelector((state: AppState) => state.user.userInfo.data);
   const dispatch = useDispatch();
 
   const authMe = () => {
@@ -49,14 +50,10 @@ export const User: FC<Props> = memo(({ isInUserProfile }) => {
   }, [window.location.href]);
 
   useEffect(() => {
-    if (!userId || !token) {
+    if (!userId || !token || !!user) {
       return;
     }
-    fetch(`${apiUrl}userInfo?userId=${userId}&token=${token}`)
-      .then((data) => data.json())
-      .then((data) => {
-        setUser(data);
-      });
+    dispatch(getUserInfo({ token, userId }));
   }, [userId]);
 
   return (

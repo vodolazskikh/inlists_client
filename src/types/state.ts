@@ -1,4 +1,6 @@
 import { List } from "./data";
+import { User } from "./user";
+import { DataMeta } from "./lib";
 
 export type AppState = {
   popup: {
@@ -6,4 +8,5 @@ export type AppState = {
     type?: "list" | "addNew";
     item?: List;
   };
+  user: { userInfo: DataMeta<User> };
 };
