@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { openPopup } from "state/actions/popup";
 import { generateUuid } from "utils/generateUuid";
-import { vkAuth } from "config";
+import { features, vkAuth } from "config";
 import { AppState } from "types/state";
 import { getUserInfo } from "state/actions/user";
 import { Loading } from "svg/loading";
@@ -63,14 +63,17 @@ export const User: FC<Props> = memo(({ isInUserProfile }) => {
     <div>
       {isInUserProfile || !user.data ? avatar : <Link to="/me">{avatar}</Link>}
       <div className="absolute top-64 mt-4">
+        {features.especial && (
+          <button className="absolute right-48 bottom-32 focus:outline-none text-xl flex ml-8 text-xl text-white bg-red-400 rounded-full h-32 w-32 flex items-center justify-center transform hover:scale-105 transition-transform cursor-pointer">
+            🎄
+          </button>
+        )}
+
         <button
-          className="absolute right-48 bottom-32 focus:outline-none text-xl flex ml-8 text-xl text-white bg-blue-400 rounded-full h-32 w-32 flex items-center justify-center transform hover:scale-105 transition-transform cursor-pointer"
+          className="focus:outline-none text-2xl flex ml-8 text-xl text-white bg-blue-400 rounded-full h-48 w-48 flex items-center justify-center transform hover:scale-105 transition-transform cursor-pointer"
           onClick={onAddNewClick}
         >
           +
-        </button>
-        <button className="focus:outline-none text-2xl flex ml-8 text-xl text-white bg-red-400 rounded-full h-48 w-48 flex items-center justify-center transform hover:scale-105 transition-transform cursor-pointer">
-          🎄
         </button>
       </div>
     </div>

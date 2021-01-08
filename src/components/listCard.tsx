@@ -3,6 +3,7 @@ import { List } from "../types/data";
 import { Close } from "icons/close";
 import { useDispatch } from "react-redux";
 import { closePopup } from "state/actions/popup";
+import { LiItem } from "components/liItem";
 
 interface Props {
   list: List;
@@ -32,10 +33,12 @@ export const ListCard: FC<Props> = memo(({ list, usage }) => {
         {list.description}
       </div>
       <ul className="ml-24 text-base">
-        {list.list.map((listItem, ind) => (
-          <li key={ind} className="mb-12">
-            {ind + 1}. {listItem}
-          </li>
+        {list.list.map((listItem, pos) => (
+          <LiItem
+            title={listItem}
+            isChecked={false}
+            key={`${pos}_${listItem}`}
+          />
         ))}
       </ul>
     </>

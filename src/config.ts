@@ -5,3 +5,8 @@ export const vkAuth = {
   redirect_uri: "http://inlists.ru/authme",
   client_id: "7719105",
 };
+
+export const features = {
+  search: process.env.NODE_ENV === "development",
+  especial: process.env.NODE_ENV === "development",
+};

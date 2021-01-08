@@ -14,7 +14,7 @@ export const ListPreview: FC<Props> = memo(
     return (
       <div
         className={classNames(
-          "select-none bg-white border-black bg-blue-100 m-8 px-32 py-8 rounded-md cursor-pointer text-lg flex justify-between z-base transform hover:scale-105 transition-transform",
+          "select-none bg-white border-black bg-blue-100 m-8 px-32 py-8 rounded-md cursor-pointer text-lg flex items-center justify-between z-base transform hover:scale-105 transition-transform",
           {
             "col-span-2 bg-red-200":
               position === 0 || position === 3 || position === 10,
