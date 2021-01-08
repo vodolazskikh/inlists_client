@@ -7,6 +7,7 @@ import { features, vkAuth } from "config";
 import { AppState } from "types/state";
 import { getUserInfo } from "state/actions/user";
 import { Loading } from "svg/loading";
+import classNames from "classnames";
 
 interface Props {
   isInUserProfile?: boolean;
@@ -62,7 +63,13 @@ export const User: FC<Props> = memo(({ isInUserProfile }) => {
   return (
     <div>
       {isInUserProfile || !user.data ? avatar : <Link to="/me">{avatar}</Link>}
-      <div className="absolute top-64 mt-4">
+      <div
+        className={classNames("absolute mt-4", {
+          // @todo выпилить после релиза фичи с эспешиал-рубриками
+          "top-4 right-68": !features.especial,
+          "top-64": features.especial,
+        })}
+      >
         {features.especial && (
           <button className="absolute right-48 bottom-32 focus:outline-none text-xl flex ml-8 text-xl text-white bg-red-400 rounded-full h-32 w-32 flex items-center justify-center transform hover:scale-105 transition-transform cursor-pointer">
             🎄
