@@ -18,6 +18,7 @@ export const Filters: FC<Props> = memo(({ types, handleFilterApply }) => {
     <div className="flex">
       {types.map((item) => (
         <div
+          key={item.name}
           onClick={onFilterClick(item.type)}
           className={classNames(
             "select-none mr-16 border-2 py-4 px-16 cursor-pointer rounded-full",

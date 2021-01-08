@@ -3,5 +3,5 @@ export interface DataMeta<T> {
     loading: boolean;
     error: string | undefined;
   };
-  data: T;
+  data?: T;
 }

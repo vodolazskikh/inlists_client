@@ -41,6 +41,7 @@ export const Profile: FC = memo(() => {
           <div className="grid grid-cols-2 max-h-600 overflow-scroll">
             {lists.map((list, position) => (
               <ListPreview
+                key={`${list.id}_${position}`}
                 onClick={() => handleItemClick(position)}
                 isSelected={selectedItemIndex === position}
                 list={list}
