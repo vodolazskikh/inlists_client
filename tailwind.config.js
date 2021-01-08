@@ -17,9 +17,12 @@ module.exports = {
       48: "48px",
       64: "64px",
       68: "68px",
+      72: "72px",
       112: "112px",
+      120: "120px",
     },
     minWidth: {
+      300: "300px",
       600: "600px",
     },
     maxHeight: {
@@ -34,6 +37,7 @@ module.exports = {
     },
     screens: {
       sm: { max: "639px" },
+      lg: { min: "640px" },
     },
   },
   variants: {

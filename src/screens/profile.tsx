@@ -23,7 +23,7 @@ export const Profile: FC = memo(() => {
       <section className="absolute top-32 right-32 flex-col flex items-start">
         <User isInUserProfile />
       </section>
-      <section className="flex w-full items-center justify-evenly">
+      <section className="flex w-full sm:flex-col-reverse items-center justify-evenly mt-72 sm:mt-120">
         <div>
           <div className="ml-8 text-lg mb-32 cursor-pointer absolute top-48">
             <Link to="/">Вернуться назад</Link>
@@ -49,7 +49,7 @@ export const Profile: FC = memo(() => {
             ))}
           </div>
         </div>
-        <div className="min-w-600">
+        <div className="lg:min-w-300">
           <ListCard list={lists[selectedItemIndex]} usage="flat" />
         </div>
       </section>
