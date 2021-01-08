@@ -1,10 +1,9 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { FC, memo, useEffect, useMemo, useState } from "react";
+import React, { FC, memo, useCallback, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { openPopup } from "state/actions/popup";
 import { generateUuid } from "utils/generateUuid";
-import { apiUrl, vkAuth } from "config";
+import { vkAuth } from "config";
 import { AppState } from "types/state";
 import { getUserInfo } from "state/actions/user";
 import { Loading } from "svg/loading";
@@ -14,48 +13,27 @@ interface Props {
 }
 
 export const User: FC<Props> = memo(({ isInUserProfile }) => {
-  const [token, setToken] = useState(localStorage.getItem("vk_token"));
-  const [userId, setUserId] = useState(localStorage.getItem("vk_user_id"));
+  const token = localStorage.getItem("vk_token");
+  const userId = localStorage.getItem("vk_user_id");
   const user = useSelector((state: AppState) => state.user.userInfo);
   const dispatch = useDispatch();
 
-  const authMe = () => {
-    if (!user.data)
+  const authMe = useCallback(() => {
+    if (!user.data?.id) {
       window.location.href = `${vkAuth.url}authorize?client_id=${vkAuth.client_id}&redirect_uri=${vkAuth.redirect_uri}`;
-  };
+    }
+  }, [user.data?.id]);
 
   const onAddNewClick = () => {
     dispatch(openPopup({ type: "addNew", id: generateUuid() }));
   };
 
   useEffect(() => {
-    const redirectedFromAuth = window.location.href.includes("authme");
-
-    if (token && !redirectedFromAuth) {
-      return;
-    }
-
-    if (redirectedFromAuth) {
-      const code = window.location.href.split("code=")[1];
-      fetch(`${apiUrl}token?code=${code}`)
-        .then((data) => data.json())
-        .then((tokenAndUserId) => {
-          if (tokenAndUserId.access_token && tokenAndUserId.user_id) {
-            setToken(tokenAndUserId.access_token);
-            setUserId(tokenAndUserId.user_id);
-            localStorage.setItem("vk_token", tokenAndUserId.access_token);
-            localStorage.setItem("vk_user_id", tokenAndUserId.user_id);
-          }
-        });
-    }
-  }, [window.location.href]);
-
-  useEffect(() => {
-    if (!userId || !token || !!user.data) {
+    if (!userId || !token || !!user.data?.id) {
       return;
     }
     dispatch(getUserInfo({ token, userId }));
-  }, [userId]);
+  }, [userId, token, user.data?.id, dispatch]);
 
   const avatar = useMemo(() => {
     if (user.meta.loading) {
@@ -70,7 +48,7 @@ export const User: FC<Props> = memo(({ isInUserProfile }) => {
       <img
         className="rounded-full h-64 w-64 flex items-center justify-center transform hover:scale-105 transition-transform cursor-pointer"
         src={
-          user
+          user.data
             ? user.data?.photo_100
             : "https://www.dovercourt.org/wp-content/uploads/2019/11/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.jpg"
         }
@@ -79,11 +57,11 @@ export const User: FC<Props> = memo(({ isInUserProfile }) => {
         onClick={authMe}
       />
     );
-  }, [user]);
+  }, [user, authMe]);
 
   return (
     <div>
-      {isInUserProfile ? avatar : <Link to="/me">{avatar}</Link>}
+      {isInUserProfile || !user.data ? avatar : <Link to="/me">{avatar}</Link>}
       <div className="absolute top-64 mt-4">
         <button
           className="absolute right-48 bottom-32 focus:outline-none text-xl flex ml-8 text-xl text-white bg-blue-400 rounded-full h-32 w-32 flex items-center justify-center transform hover:scale-105 transition-transform cursor-pointer"
