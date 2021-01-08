@@ -24,6 +24,10 @@ export const Popup: FC<Props> = memo(({ item, type }) => {
     };
   }, []);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
+
   const closePopupByEsc = (e: any) => {
     if (!e) {
       return;
@@ -50,8 +54,8 @@ export const Popup: FC<Props> = memo(({ item, type }) => {
   }
 
   return (
-    <div className="w-screen h-full bg-black bg-opacity-80 absolute top-0 left-0 z-base flex items-center justify-center sm:items-start sm:p-32">
-      <div className="w-2/5 h-2/3 bg-white rounded-md relative p-16 sm:w-11/12">
+    <div className="w-screen h-full bg-black bg-opacity-80 absolute top-0 left-0 z-base flex items-center justify-center sm:items-start sm:p-0">
+      <div className="w-2/5 h-2/3 bg-white rounded-md relative p-16 sm:w-full sm:h-screen sm:rounded-none">
         {body}
       </div>
     </div>
