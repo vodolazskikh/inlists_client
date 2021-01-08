@@ -2,7 +2,7 @@ import { render } from "react-dom";
 import React from "react";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
-import "./index.css";
+import "./tailwind.output.css";
 import reportWebVitals from "./reportWebVitals";
 import { rootReducer } from "state/reducers";
 import thunkMiddleware from "redux-thunk";
