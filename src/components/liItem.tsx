@@ -29,7 +29,7 @@ export const LiItem: FC<Props> = memo(
           variant="thick"
           animation="jelly"
           color="info"
-          checked={checkboxChecked}
+          defaultChecked={checkboxChecked}
         ></Checkbox>
         <div className="whitespace-normal">{title}</div>
         {!title && onTextChange && (
