@@ -9,4 +9,5 @@ export const vkAuth = {
 export const features = {
   search: process.env.NODE_ENV === "development",
   especial: process.env.NODE_ENV === "development",
+  main_promo: true,
 };

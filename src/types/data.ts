@@ -5,6 +5,7 @@ export interface List {
   rating: number;
   list: string[];
   emoji?: string;
+  isAds?: boolean;
 }
 
 export type FilterName = "my" | "friends" | "favorites";

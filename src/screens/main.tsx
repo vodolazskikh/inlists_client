@@ -20,6 +20,19 @@ export const Main: FC = memo(() => {
     dispatch(openPopup({ id: generateUuid(), type: "list", item }));
   };
 
+  const adsEl = {
+    id: "promo",
+    title: "Промо-блок",
+    description: "Я продам этот рекламный-слот и стану очень богатым",
+    rating: 5,
+    list: [],
+    isAds: true,
+  };
+
+  const listWithAds = features.main_promo
+    ? [...lists.slice(0, 2), adsEl, ...lists.slice(2, lists.length)]
+    : lists;
+
   return (
     <div className="min-h-screen gap-4 flex flex-col items-center justify-center text-gray-500 relative">
       <section className="absolute top-32 right-32 flex-col flex items-start">
@@ -30,7 +43,7 @@ export const Main: FC = memo(() => {
           <City />
         </div>
         {features.search && <SearchInput />}
-        {lists.map((item, ind) => (
+        {listWithAds.map((item, ind) => (
           <ListPreview
             key={`${item.id}_${ind}`}
             onClick={() => openFullscreenMode(item)}
