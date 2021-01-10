@@ -4,6 +4,7 @@ import { Close } from "icons/close";
 import { useDispatch } from "react-redux";
 import { closePopup } from "state/actions/popup";
 import { LiItem } from "components/liItem";
+import { useHistory } from "react-router-dom";
 
 interface Props {
   list: List;
@@ -12,7 +13,10 @@ interface Props {
 
 export const ListCard: FC<Props> = memo(({ list, usage }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
+
   const closeCurrentPopup = () => {
+    history.push("/");
     dispatch(closePopup());
   };
 

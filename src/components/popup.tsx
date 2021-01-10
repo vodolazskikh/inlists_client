@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { closePopup } from "state/actions/popup";
 import { ListCard } from "components/listCard";
 import { AddNew } from "components/addNew";
+import { useHistory } from "react-router-dom";
 
 interface Props {
   type?: "list" | "addNew";
@@ -13,6 +14,14 @@ interface Props {
 
 export const Popup: FC<Props> = memo(({ item, type }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
+
+  history.listen((location, action) => {
+    if (location.pathname === "/") {
+      closeCurrentPopup();
+    }
+  });
+
   const closeCurrentPopup = () => {
     dispatch(closePopup());
   };
@@ -32,8 +41,10 @@ export const Popup: FC<Props> = memo(({ item, type }) => {
     if (!e) {
       return;
     }
+
     if (e.key === "Escape") {
       closeCurrentPopup();
+      history.push("/");
     }
   };
 

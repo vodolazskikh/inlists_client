@@ -12,7 +12,6 @@ export const App: FC = memo(() => {
 
   useEffect(() => {
     const redirectedFromAuth = window.location.href.includes("authme");
-    console.log("redirectedFromAuth", redirectedFromAuth, apiUrl);
     if (redirectedFromAuth) {
       const code = window.location.href.split("code=")[1];
       fetch(`${apiUrl}token?code=${code}`)
@@ -31,6 +30,9 @@ export const App: FC = memo(() => {
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
+          <Main />
+        </Route>
+        <Route exact path="/list">
           <Main />
         </Route>
         <Route path="/me">

@@ -13,6 +13,7 @@ export const ListPreview: FC<Props> = memo(
   ({ list, position, isSelected, onClick }) => {
     return (
       <div
+        onClick={onClick}
         className={classNames(
           "select-none bg-white border-black bg-blue-100 m-8 px-32 py-8 rounded-md cursor-pointer text-lg flex items-center justify-between z-base transform hover:scale-105 transition-transform",
           {
@@ -26,7 +27,6 @@ export const ListPreview: FC<Props> = memo(
             "bg-blue-400 text-white": isSelected,
           }
         )}
-        onClick={onClick}
       >
         <span>{list.title}</span>
         <span>{list.emoji}</span>

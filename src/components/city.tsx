@@ -14,10 +14,11 @@ export const City = memo(() => {
   }, []);
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      onGeoLocationSuccess,
-      onGeoLocationError
-    );
+    // @TODO заюзать геокодинг и сделать ситиселект
+    // navigator.geolocation.getCurrentPosition(
+    //   onGeoLocationSuccess,
+    //   onGeoLocationError
+    // );
   }, [onGeoLocationSuccess, onGeoLocationError]);
   return (
     <div className="relative z-base flex justify-start items-center p-8 w-full">

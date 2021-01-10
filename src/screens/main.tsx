@@ -9,11 +9,14 @@ import { generateUuid } from "utils/generateUuid";
 import { List } from "types/data";
 import { features } from "config";
 import { City } from "../components/city";
+import { useHistory } from "react-router-dom";
 
 export const Main: FC = memo(() => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const openFullscreenMode = (item: List) => {
+    history.push(`/list?id=${item.id}`);
     dispatch(openPopup({ id: generateUuid(), type: "list", item }));
   };
 
