@@ -12178,6 +12178,10 @@ video {
   min-height: 100vh;
 }
 
+.min-w-300 {
+  min-width: 300px;
+}
+
 .min-w-600 {
   min-width: 600px;
 }
@@ -38904,6 +38908,10 @@ code {
     min-height: 100vh;
   }
 
+  .sm\:min-w-300 {
+    min-width: 300px;
+  }
+
   .sm\:min-w-600 {
     min-width: 600px;
   }
@@ -65571,6 +65579,10 @@ code {
 
   .lg\:min-h-screen {
     min-height: 100vh;
+  }
+
+  .lg\:min-w-300 {
+    min-width: 300px;
   }
 
   .lg\:min-w-600 {

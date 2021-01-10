@@ -8,6 +8,7 @@ import { openPopup } from "state/actions/popup";
 import { generateUuid } from "utils/generateUuid";
 import { List } from "types/data";
 import { features } from "config";
+import { City } from "../components/city";
 
 export const Main: FC = memo(() => {
   const dispatch = useDispatch();
@@ -22,6 +23,9 @@ export const Main: FC = memo(() => {
         <User />
       </section>
       <section className="grid grid-cols-4 p-32 z-base sm:flex sm:flex-col sm:mt-112">
+        <div className="col-span-4">
+          <City />
+        </div>
         {features.search && <SearchInput />}
         {lists.map((item, ind) => (
           <ListPreview
