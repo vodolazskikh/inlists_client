@@ -7,6 +7,7 @@ import { features, vkAuth } from "config";
 import { AppState } from "types/state";
 import { getUserInfo } from "state/actions/user";
 import { Loading } from "svg/loading";
+import { useHistory } from "react-router-dom";
 import classNames from "classnames";
 
 interface Props {
@@ -18,6 +19,7 @@ export const User: FC<Props> = memo(({ isInUserProfile }) => {
   const userId = localStorage.getItem("vk_user_id");
   const user = useSelector((state: AppState) => state.user.userInfo);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const authMe = useCallback(() => {
     if (!user.data?.id) {
@@ -26,6 +28,7 @@ export const User: FC<Props> = memo(({ isInUserProfile }) => {
   }, [user.data?.id]);
 
   const onAddNewClick = () => {
+    history.push(!isInUserProfile ? "add" : "/me/add");
     dispatch(openPopup({ type: "addNew", id: generateUuid() }));
   };
 

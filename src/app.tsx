@@ -29,14 +29,11 @@ export const App: FC = memo(() => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/">
-          <Main />
-        </Route>
-        <Route exact path="/list">
-          <Main />
-        </Route>
         <Route path="/me">
           <Profile />
+        </Route>
+        <Route exact path="*">
+          <Main />
         </Route>
       </Switch>
       {popupInState?.id && (

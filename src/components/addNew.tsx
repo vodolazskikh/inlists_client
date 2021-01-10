@@ -5,10 +5,13 @@ import { closePopup } from "state/actions/popup";
 import { LiItem } from "./liItem";
 import Picker from "emoji-picker-react";
 import { useOnClickOutside } from "hooks/useOnClickOutside";
+import { useHistory } from "react-router-dom";
 
 export const AddNew: FC = memo(() => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const closeCurrentPopup = () => {
+    history.goBack();
     dispatch(closePopup());
   };
 

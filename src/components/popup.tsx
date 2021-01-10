@@ -44,7 +44,7 @@ export const Popup: FC<Props> = memo(({ item, type }) => {
 
     if (e.key === "Escape") {
       closeCurrentPopup();
-      history.push("/");
+      history.goBack();
     }
   };
 
