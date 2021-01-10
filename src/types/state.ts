@@ -1,6 +1,6 @@
 import { List } from "./data";
 import { User } from "./user";
-import { DataMeta } from "./lib";
+import { DataMeta, Dictionary } from "./lib";
 
 export type AppState = {
   popup: {
@@ -9,4 +9,6 @@ export type AppState = {
     item?: List;
   };
   user: { userInfo: DataMeta<User> };
+  lists: DataMeta<Dictionary<List>>;
+  city: DataMeta<Dictionary<List[]>>;
 };

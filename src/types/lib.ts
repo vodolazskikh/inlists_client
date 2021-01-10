@@ -5,3 +5,4 @@ export interface DataMeta<T> {
   };
   data?: T;
 }
+export type Dictionary<T> = { [id: string]: T | undefined };
