@@ -2,10 +2,11 @@ import { ListCard } from "components/listCard";
 import { ListPreview } from "components/listPreview";
 import { User } from "components/user";
 import { lists } from "mocks/lists";
-import React, { FC, memo, useCallback, useState } from "react";
+import React, { FC, memo, useCallback, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { Filters } from "components/filters";
 import { FilterName } from "types/data";
+import { features } from "config";
 
 export const Profile: FC = memo(() => {
   const [selectedItemIndex, setSelectedItemIndex] = useState(0);
@@ -14,9 +15,22 @@ export const Profile: FC = memo(() => {
     setSelectedItemIndex(num);
   }, []);
 
-  const onFilterApply = (filterName: FilterName) => {
-    console.log("Выбрал фильтр", filterName);
+  const onFilterApply = (_filterName: FilterName) => {
+    // console.log("Выбрал фильтр", filterName);
   };
+
+  const listFilters = useMemo(() => {
+    const filters = [{ type: "my" as FilterName, name: "Я автор" }];
+
+    if (features.friends) {
+      filters.push({ type: "friends" as FilterName, name: "Добавили друзья" });
+    }
+    if (features.favorites) {
+      filters.push({ type: "favorites" as FilterName, name: "Моё избранное" });
+    }
+
+    return filters;
+  }, []);
 
   return (
     <div className="min-h-screen gap-4 flex flex-col items-center justify-center text-gray-500 relative">
@@ -29,14 +43,7 @@ export const Profile: FC = memo(() => {
             <Link to="/">Вернуться назад</Link>
           </div>
           <div className="ml-8 mb-16">
-            <Filters
-              handleFilterApply={onFilterApply}
-              types={[
-                { type: "my", name: "Я автор" },
-                { type: "friends", name: "Списки друзей" },
-                { type: "favorites", name: "Моё избранное" },
-              ]}
-            />
+            <Filters handleFilterApply={onFilterApply} types={listFilters} />
           </div>
           <div className="grid grid-cols-2 max-h-600 overflow-scroll">
             {lists.map((list, position) => (
