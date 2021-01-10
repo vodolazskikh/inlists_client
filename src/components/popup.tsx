@@ -16,7 +16,7 @@ export const Popup: FC<Props> = memo(({ item, type }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  history.listen((location, action) => {
+  history.listen((location) => {
     if (location.pathname === "/") {
       closeCurrentPopup();
     }

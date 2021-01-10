@@ -1,4 +1,4 @@
-import React, { FC, memo, useRef } from "react";
+import React, { FC, memo, useRef, useState } from "react";
 import { Checkbox } from "pretty-checkbox-react";
 import "@djthoms/pretty-checkbox";
 
@@ -9,28 +9,38 @@ interface Props {
   pos?: number;
 }
 
-export const LiItem: FC<Props> = memo(({ title, onTextChange, pos }) => {
-  const ref = useRef(null);
+export const LiItem: FC<Props> = memo(
+  ({ title, onTextChange, pos, isChecked }) => {
+    const ref = useRef(null);
+    const [checkboxChecked, setCheckboxChecked] = useState(isChecked);
 
-  return (
-    <li className="mb-12">
-      <Checkbox
-        ref={ref}
-        shape="curve"
-        variant="thick"
-        animation="jelly"
-        color="info"
+    const checkboxClickHandler = () => {
+      setCheckboxChecked((v) => !v);
+    };
+
+    return (
+      <li
+        className="mb-12 flex items-baseline cursor-pointer"
+        onClick={checkboxClickHandler}
       >
-        {title}
-      </Checkbox>
-      {!title && onTextChange && (
-        <input
-          placeholder="Напишите что-нибудь"
-          className="outline-none"
-          autoFocus
-          onChange={(e) => onTextChange(e.currentTarget.value, pos)}
-        />
-      )}
-    </li>
-  );
-});
+        <Checkbox
+          ref={ref}
+          shape="curve"
+          variant="thick"
+          animation="jelly"
+          color="info"
+          checked={checkboxChecked}
+        ></Checkbox>
+        <div className="whitespace-normal">{title}</div>
+        {!title && onTextChange && (
+          <input
+            placeholder="Напишите что-нибудь"
+            className="outline-none"
+            autoFocus
+            onChange={(e) => onTextChange(e.currentTarget.value, pos)}
+          />
+        )}
+      </li>
+    );
+  }
+);

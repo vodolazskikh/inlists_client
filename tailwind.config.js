@@ -22,6 +22,7 @@ module.exports = {
       120: "120px",
     },
     minWidth: {
+      "1/2": "50%",
       300: "300px",
       600: "600px",
     },
@@ -36,6 +37,7 @@ module.exports = {
       auto: "auto",
     },
     screens: {
+      md: { max: "960px" },
       sm: { max: "639px" },
       lg: { min: "640px" },
     },
