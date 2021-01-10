@@ -49,7 +49,7 @@ export const Profile: FC = memo(() => {
             ))}
           </div>
         </div>
-        <div className="p-32">
+        <div className="p-32 lg:min-w-400 lg:max-w-400 min-w-full">
           <ListCard list={lists[selectedItemIndex]} usage="flat" />
         </div>
       </section>
