@@ -71,7 +71,7 @@ export const Main: FC = memo(() => {
         );
       }
     }
-  }, [location, popup.type, listsInState.data]);
+  }, [location, listsInState.data]);
 
   useEffect(() => {
     if (location.pathname === "/add" && popup.type !== "addNew") {

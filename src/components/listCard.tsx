@@ -40,7 +40,7 @@ export const ListCard: FC<Props> = memo(({ list, usage }) => {
         {list.items.map((listItem, pos) => (
           <LiItem
             title={listItem.value}
-            isChecked={false}
+            isChecked={listItem.isChecked}
             key={`${pos}_${listItem}`}
           />
         ))}

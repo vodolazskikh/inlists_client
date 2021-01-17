@@ -69,9 +69,12 @@ export const AddNew: FC = memo(() => {
   );
 
   const submitNewList = () => {
+    // Отправляем запрос на сервер
     dispatch(
       addList({ title, description, items, emoji, city: "Новосибирск" })
     );
+    // Закрываем попап
+    closeCurrentPopup();
   };
 
   return (
@@ -111,10 +114,17 @@ export const AddNew: FC = memo(() => {
         />
       </div>
       <button
-        className="bg-blue-400 active:bg-blue-500 ml-24 text-white pt-2 pb-2 pr-12 pl-12 mb-16 focus:outline-none"
+        className="bg-blue-400 active:bg-blue-500 ml-24 mr-12 text-white pt-2 pb-2 pr-12 pl-12 mb-16 focus:outline-none"
         onClick={onAddItemClick}
       >
         Добавьте элемент
+      </button>
+      <button
+        type="submit"
+        className="bg-blue-400 active:bg-blue-500 text-white pt-2 pb-2 pr-12 pl-12 mb-16 focus:outline-none"
+        onClick={submitNewList}
+      >
+        Готово
       </button>
       <ul className="ml-24 text-base">
         {items.map((item, pos) => (
@@ -127,13 +137,6 @@ export const AddNew: FC = memo(() => {
           />
         ))}
       </ul>
-      <button
-        type="submit"
-        className="absolute bottom-8 right-24 bg-blue-400 active:bg-blue-500 ml-24 text-white pt-2 pb-2 pr-12 pl-12 mb-16 focus:outline-none"
-        onClick={submitNewList}
-      >
-        Готово
-      </button>
     </div>
   );
 });
