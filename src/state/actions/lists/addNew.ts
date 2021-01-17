@@ -4,7 +4,7 @@ import { List } from "../../../types/data";
 
 export type AddListAction = {
   type: "ADD_LIST_SUCCESS" | "ADD_LIST_STARTED" | "ADD_LIST_FAILURE";
-  payload: { lists: List[]; cityId: string; error?: string };
+  payload: { list: List; error?: string };
 };
 
 export const addList = (params: {
