@@ -40,7 +40,7 @@ export const Main: FC = memo(() => {
     title: "Промо-блок",
     description: "Я продам этот рекламный-слот и стану очень богатым",
     rating: 5,
-    list: [],
+    items: [],
     isAds: true,
   };
 

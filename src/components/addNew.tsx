@@ -120,7 +120,7 @@ export const AddNew: FC = memo(() => {
         {items.map((item, pos) => (
           <LiItem
             title={item.value}
-            isChecked={false}
+            isChecked={item.isChecked}
             key={`${pos}_${item}`}
             pos={pos}
             onTextChange={onTextChange}

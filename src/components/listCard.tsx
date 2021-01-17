@@ -37,9 +37,9 @@ export const ListCard: FC<Props> = memo(({ list, usage }) => {
         {list.description}
       </div>
       <ul className="ml-24 text-base">
-        {list.list?.map((listItem, pos) => (
+        {list.items.map((listItem, pos) => (
           <LiItem
-            title={listItem}
+            title={listItem.value}
             isChecked={false}
             key={`${pos}_${listItem}`}
           />

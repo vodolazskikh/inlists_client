@@ -3,7 +3,7 @@ import { Checkbox } from "pretty-checkbox-react";
 import "@djthoms/pretty-checkbox";
 
 interface Props {
-  title: string | undefined;
+  title?: string;
   isChecked: boolean;
   onTextChange?: (v: string, pos?: number) => void;
   pos?: number;

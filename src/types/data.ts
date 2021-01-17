@@ -3,7 +3,7 @@ export interface List {
   title: string;
   description: string;
   rating: number;
-  list?: string[];
+  items: { value: string; isChecked: boolean }[];
   emoji?: string;
   isAds?: boolean;
 }
