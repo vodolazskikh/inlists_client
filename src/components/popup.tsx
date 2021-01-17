@@ -58,7 +58,7 @@ export const Popup: FC<Props> = memo(({ item, type }) => {
       case "addNew":
         return <AddNew />;
     }
-  }, [type, item?.id]);
+  }, [type, item?._id]);
 
   if (!type) {
     return null;

@@ -1,9 +1,9 @@
 export interface List {
-  id: string;
+  _id: string;
   title: string;
   description: string;
   rating: number;
-  list: string[];
+  list?: string[];
   emoji?: string;
   isAds?: boolean;
 }

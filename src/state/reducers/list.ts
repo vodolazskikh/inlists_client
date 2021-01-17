@@ -26,7 +26,7 @@ export const getListByIdReducer = (
         ...state,
         data: {
           ...state.data,
-          [action.payload.list.id]: action.payload.list,
+          [action.payload.list._id]: action.payload.list,
         },
         meta: {
           loading: false,

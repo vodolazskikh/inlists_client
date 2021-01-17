@@ -2,6 +2,7 @@ import { Close } from "icons/close";
 import React, { FC, memo, useCallback, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { closePopup } from "state/actions/popup";
+import { addList } from "state/actions/lists/addNew";
 import { LiItem } from "./liItem";
 import Picker from "emoji-picker-react";
 import { useOnClickOutside } from "hooks/useOnClickOutside";
@@ -68,7 +69,9 @@ export const AddNew: FC = memo(() => {
   );
 
   const submitNewList = () => {
-    console.log(title, description, items, emoji);
+    dispatch(
+      addList({ title, description, items, emoji, city: "Новосибирск" })
+    );
   };
 
   return (

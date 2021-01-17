@@ -2,7 +2,7 @@ import { List } from "types/data";
 
 export const lists: List[] = [
   {
-    id: "0",
+    _id: "0",
     title: "Что посмотреть",
     description: "Список фильмов для вечера пятницы",
     rating: 4.1,
@@ -14,7 +14,7 @@ export const lists: List[] = [
     ],
   },
   {
-    id: "1",
+    _id: "1",
     title: "Что приготовить",
     description: "Список рецептов для хануки",
     rating: 5.0,
@@ -22,7 +22,7 @@ export const lists: List[] = [
     list: ["Кесадия", "Фалафель", "Шакшука"],
   },
   {
-    id: "2",
+    _id: "2",
     title: "Куда сходить вечером",
     description: "Места для посещения в Новосибирске",
     rating: 3.4,
@@ -34,7 +34,7 @@ export const lists: List[] = [
     ],
   },
   {
-    id: "3",
+    _id: "3",
     title: "Куда сходить на кофе",
     description: "Места для кофе",
     rating: 4.4,
@@ -42,7 +42,7 @@ export const lists: List[] = [
     list: ["Академия", "[Реклама]"],
   },
   {
-    id: "0",
+    _id: "0",
     title: "Что посмотреть",
     description: "Список фильмов для вечера пятницы",
     rating: 4.1,
@@ -54,7 +54,7 @@ export const lists: List[] = [
     ],
   },
   {
-    id: "1",
+    _id: "1",
     title: "Что приготовить",
     description: "Список рецептов для хануки",
     rating: 5.0,
@@ -62,7 +62,7 @@ export const lists: List[] = [
     list: ["Кесадия", "Фалафель", "Шакшука"],
   },
   {
-    id: "2",
+    _id: "2",
     title: "Куда сходить вечером",
     description: "Места для посещения в Новосибирске",
     rating: 3.4,
@@ -74,7 +74,7 @@ export const lists: List[] = [
     ],
   },
   {
-    id: "3",
+    _id: "3",
     title: "Куда сходить на кофе",
     description: "Места для кофе",
     rating: 4.4,
@@ -82,7 +82,7 @@ export const lists: List[] = [
     list: ["Академия", "[Реклама]"],
   },
   {
-    id: "0",
+    _id: "0",
     title: "Что посмотреть",
     description: "Список фильмов для вечера пятницы",
     rating: 4.1,
@@ -94,7 +94,7 @@ export const lists: List[] = [
     ],
   },
   {
-    id: "1",
+    _id: "1",
     title: "Что приготовить",
     description: "Список рецептов для хануки",
     rating: 5.0,
@@ -102,7 +102,7 @@ export const lists: List[] = [
     list: ["Кесадия", "Фалафель", "Шакшука"],
   },
   {
-    id: "2",
+    _id: "2",
     title: "Куда сходить вечером",
     description: "Места для посещения в Новосибирске",
     rating: 3.4,
@@ -114,7 +114,7 @@ export const lists: List[] = [
     ],
   },
   {
-    id: "3",
+    _id: "3",
     title: "Куда сходить на кофе",
     description: "Места для кофе",
     rating: 4.4,
@@ -122,7 +122,7 @@ export const lists: List[] = [
     list: ["Академия", "[Реклама]"],
   },
   {
-    id: "0",
+    _id: "0",
     title: "Что посмотреть",
     description: "Список фильмов для вечера пятницы",
     rating: 4.1,
@@ -134,7 +134,7 @@ export const lists: List[] = [
     ],
   },
   {
-    id: "1",
+    _id: "1",
     title: "Что приготовить",
     description: "Список рецептов для хануки",
     rating: 5.0,
@@ -142,7 +142,7 @@ export const lists: List[] = [
     list: ["Кесадия", "Фалафель", "Шакшука"],
   },
   {
-    id: "2",
+    _id: "2",
     title: "Куда сходить вечером",
     description: "Места для посещения в Новосибирске",
     rating: 3.4,

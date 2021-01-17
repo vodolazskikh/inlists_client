@@ -31,12 +31,12 @@ export const Main: FC = memo(() => {
   }, []);
 
   const openFullscreenMode = (item: List) => {
-    history.push(`/list?id=${item.id}`);
+    history.push(`/list?id=${item._id}`);
     dispatch(openPopup({ id: generateUuid(), type: "list", item }));
   };
 
   const adsEl = {
-    id: "promo",
+    _id: "promo",
     title: "Промо-блок",
     description: "Я продам этот рекламный-слот и стану очень богатым",
     rating: 5,
@@ -91,7 +91,7 @@ export const Main: FC = memo(() => {
         {features.search && <SearchInput />}
         {mutableListWithAds.map((item, ind) => (
           <ListPreview
-            key={`${item.id}_${ind}`}
+            key={`${item._id}_${ind}`}
             onClick={() => openFullscreenMode(item)}
             position={ind}
             list={item}
