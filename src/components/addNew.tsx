@@ -1,15 +1,17 @@
 import { Close } from "icons/close";
 import React, { FC, memo, useCallback, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { closePopup } from "state/actions/popup";
 import { addList } from "state/actions/lists/addNew";
 import { LiItem } from "./liItem";
 import Picker from "emoji-picker-react";
 import { useOnClickOutside } from "hooks/useOnClickOutside";
 import { useHistory } from "react-router-dom";
+import { getCurrentUserInfo } from "state/selectors/user";
 
 export const AddNew: FC = memo(() => {
   const history = useHistory();
+  const authorId = useSelector(getCurrentUserInfo)?.id;
   const dispatch = useDispatch();
   const closeCurrentPopup = () => {
     history.goBack();
@@ -69,9 +71,19 @@ export const AddNew: FC = memo(() => {
   );
 
   const submitNewList = () => {
+    if (!title || !items[0]?.value) {
+      return;
+    }
     // Отправляем запрос на сервер
     dispatch(
-      addList({ title, description, items, emoji, city: "Новосибирск" })
+      addList({
+        title,
+        description,
+        items,
+        emoji,
+        authorId,
+        city: "Новосибирск",
+      })
     );
     // Закрываем попап
     closeCurrentPopup();
@@ -114,14 +126,14 @@ export const AddNew: FC = memo(() => {
         />
       </div>
       <button
-        className="bg-blue-400 active:bg-blue-500 ml-24 mr-12 text-white pt-2 pb-2 pr-12 pl-12 mb-16 focus:outline-none"
+        className="bg-blue-400 active:bg-blue-500 ml-24 mr-12 text-white pt-2 pb-2 pr-12 pl-12 mb-16 focus:outline-none rounded-sm"
         onClick={onAddItemClick}
       >
         Добавьте элемент
       </button>
       <button
         type="submit"
-        className="bg-blue-400 active:bg-blue-500 text-white pt-2 pb-2 pr-12 pl-12 mb-16 focus:outline-none"
+        className="bg-blue-400 active:bg-blue-500 text-white pt-2 pb-2 pr-12 pl-12 mb-16 focus:outline-none rounded-sm"
         onClick={submitNewList}
       >
         Готово

@@ -13,15 +13,29 @@ export const addList = (params: {
   items: any;
   emoji: string;
   city: string;
+  authorId?: string;
 }) => {
-  const { title, description, items, emoji, city } = params;
+  const { title, description, items, emoji, city, authorId } = params;
+
+  if (!authorId) {
+    // Такого не должно быть, мы не должны дергать экшен,
+    // Открывающий этот попап, если юзера нет
+    return;
+  }
 
   return (dispatch: Dispatch) => {
     dispatch(addListStarted());
 
     fetch(`${apiUrl}list`, {
       method: "post",
-      body: JSON.stringify({ title, description, items, emoji, city }),
+      body: JSON.stringify({
+        title,
+        description,
+        items,
+        emoji,
+        city,
+        authorId,
+      }),
       headers: {
         "Content-Type": "application/json",
       },

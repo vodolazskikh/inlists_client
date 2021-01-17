@@ -9,6 +9,8 @@ import { getUserInfo } from "state/actions/user";
 import { Loading } from "svg/loading";
 import { useHistory } from "react-router-dom";
 import classNames from "classnames";
+import { addTooltip } from "state/actions/tooltip";
+import { getTooltip } from "state/selectors/tooltip";
 
 interface Props {
   isInUserProfile?: boolean;
@@ -19,6 +21,7 @@ export const User: FC<Props> = memo(({ isInUserProfile }) => {
   const userId = localStorage.getItem("vk_user_id");
   const user = useSelector((state: AppState) => state.user.userInfo);
   const dispatch = useDispatch();
+  const noUserTooltipDisplayed = useSelector(getTooltip).type === "no_user";
   const history = useHistory();
 
   const authMe = useCallback(() => {
@@ -28,6 +31,10 @@ export const User: FC<Props> = memo(({ isInUserProfile }) => {
   }, [user.data?.id]);
 
   const onAddNewClick = () => {
+    if (!user.data?.id) {
+      dispatch(addTooltip({ type: "no_user", id: generateUuid() }));
+      return;
+    }
     history.push(!isInUserProfile ? "add" : "/me/add");
     dispatch(openPopup({ type: "addNew", id: generateUuid() }));
   };
@@ -50,7 +57,12 @@ export const User: FC<Props> = memo(({ isInUserProfile }) => {
 
     return (
       <img
-        className="rounded-full h-64 w-64 flex items-center justify-center transform hover:scale-105 transition-transform cursor-pointer"
+        className={classNames(
+          "rounded-full h-64 w-64 flex items-center justify-center transform hover:scale-105 transition-transform cursor-pointer",
+          {
+            "animate-pulse": noUserTooltipDisplayed,
+          }
+        )}
         src={
           user.data
             ? user.data?.photo_100
@@ -61,7 +73,7 @@ export const User: FC<Props> = memo(({ isInUserProfile }) => {
         onClick={authMe}
       />
     );
-  }, [user, authMe]);
+  }, [user, authMe, noUserTooltipDisplayed]);
 
   return (
     <div>

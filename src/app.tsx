@@ -2,13 +2,16 @@ import React, { FC, memo, useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Main } from "screens/main";
 import { Profile } from "screens/profile";
+import { getTooltip } from "state/selectors/tooltip";
 import { getPopup } from "state/selectors/popup";
 import { Popup } from "components/popup";
+import { Tooltip } from "components/tooltip";
 import { useSelector } from "react-redux";
 import { apiUrl } from "config";
 
 export const App: FC = memo(() => {
   const popupInState = useSelector(getPopup);
+  const toolipInState = useSelector(getTooltip);
 
   useEffect(() => {
     const redirectedFromAuth = window.location.href.includes("authme");
@@ -28,6 +31,7 @@ export const App: FC = memo(() => {
 
   return (
     <BrowserRouter>
+      {toolipInState?.id && <Tooltip type={toolipInState.type} />}
       <Switch>
         <Route path="/me">
           <Profile />
