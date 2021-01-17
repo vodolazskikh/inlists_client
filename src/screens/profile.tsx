@@ -1,15 +1,25 @@
 import { ListCard } from "components/listCard";
 import { ListPreview } from "components/listPreview";
 import { User } from "components/user";
-import { lists } from "mocks/lists";
-import React, { FC, memo, useCallback, useMemo, useState } from "react";
+import React, {
+  FC,
+  memo,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { Link } from "react-router-dom";
 import { Filters } from "components/filters";
 import { FilterName } from "types/data";
 import { features } from "config";
+import { useDispatch, useSelector } from "react-redux";
+import { getCurrentUserLists, getCurrentUserInfo } from "state/selectors/user";
+import { fetchUserLists } from "state/actions/users/fetchUserLists";
 
 export const Profile: FC = memo(() => {
   const [selectedItemIndex, setSelectedItemIndex] = useState(0);
+  const dispatch = useDispatch();
 
   const handleItemClick = useCallback((num: number) => {
     setSelectedItemIndex(num);
@@ -32,6 +42,18 @@ export const Profile: FC = memo(() => {
     return filters;
   }, []);
 
+  const userId = useSelector(getCurrentUserInfo)?.id;
+
+  useEffect(() => {
+    if (!userId) {
+      return;
+    }
+    dispatch(fetchUserLists({ userId }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userId]);
+
+  const lists = useSelector(getCurrentUserLists).data;
+
   return (
     <div className="min-h-screen gap-4 flex flex-col items-center justify-center text-gray-500 relative">
       <section className="absolute top-32 right-32 flex-col flex items-start">
@@ -45,20 +67,24 @@ export const Profile: FC = memo(() => {
           <div className="ml-8 mb-16">
             <Filters handleFilterApply={onFilterApply} types={listFilters} />
           </div>
-          <div className="grid grid-cols-2 max-h-600 overflow-scroll">
-            {lists.map((list, position) => (
-              <ListPreview
-                key={`${list._id}_${position}`}
-                onClick={() => handleItemClick(position)}
-                isSelected={selectedItemIndex === position}
-                list={list}
-              />
-            ))}
+          {lists?.length && (
+            <div className="grid grid-cols-2 max-h-600 overflow-scroll">
+              {lists.map((list, position) => (
+                <ListPreview
+                  key={`${list._id}_${position}`}
+                  onClick={() => handleItemClick(position)}
+                  isSelected={selectedItemIndex === position}
+                  list={list}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+        {lists?.length && (
+          <div className="p-32 lg:min-w-400 lg:max-w-400 min-w-full">
+            <ListCard list={lists[selectedItemIndex]} usage="flat" />
           </div>
-        </div>
-        <div className="p-32 lg:min-w-400 lg:max-w-400 min-w-full">
-          <ListCard list={lists[selectedItemIndex]} usage="flat" />
-        </div>
+        )}
       </section>
     </div>
   );

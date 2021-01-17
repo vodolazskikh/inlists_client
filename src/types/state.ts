@@ -13,7 +13,7 @@ export type AppState = {
     id?: string;
     type?: TooltipType;
   };
-  user: { userInfo: DataMeta<User> };
+  user: { userInfo: DataMeta<User>; lists: DataMeta<List[]> };
   lists: DataMeta<Dictionary<List>>;
   city: DataMeta<Dictionary<List[]>>;
 };
