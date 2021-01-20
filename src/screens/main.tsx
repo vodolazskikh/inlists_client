@@ -42,6 +42,7 @@ export const Main: FC = memo(() => {
     rating: 5,
     items: [],
     isAds: true,
+    isCityGeneral: true,
   };
 
   let mutableListWithAds: List[] = [];

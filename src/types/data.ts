@@ -6,6 +6,7 @@ export interface List {
   items: { value: string; isChecked: boolean }[];
   emoji?: string;
   isAds?: boolean;
+  isCityGeneral: boolean;
 }
 
 export type FilterName = "my" | "friends" | "favorites";

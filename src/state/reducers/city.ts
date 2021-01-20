@@ -22,7 +22,6 @@ export const fetchListByCityReducer = (
         },
       };
     case "FETCH_LIST_BY_CITY_SUCCESS":
-      console.log("kek", action.payload.lists);
       return {
         ...state,
         data: {
