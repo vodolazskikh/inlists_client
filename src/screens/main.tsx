@@ -130,7 +130,7 @@ export const Main: FC = memo(() => {
       <section className="absolute top-32 right-32 flex-col flex items-start">
         <User />
       </section>
-      <section className="grid grid-cols-4 p-32 z-base sm:flex sm:flex-col sm:mt-112">
+      <section className="grid grid-cols-4 p-32 z-base sm:flex sm:flex-col sm:mt-112 w-full">
         <div className="col-span-4 select-none">
           <City
             cityCode={cityCode as CityCode}
