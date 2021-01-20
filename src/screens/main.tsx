@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { FC, memo, useEffect } from "react";
+import React, { FC, memo, useEffect, useMemo } from "react";
 import { ListPreview } from "../components/listPreview";
 import { User } from "../components/user";
 import { SearchInput } from "../components/searchInput";
@@ -13,6 +13,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import { AppState } from "types/state";
 import { getListById } from "state/actions/lists/byId";
 import { fetchListsByCity } from "state/actions/lists/byCity";
+import { Loading } from "svg/loading";
 
 export const Main: FC = memo(() => {
   const dispatch = useDispatch();
@@ -23,6 +24,10 @@ export const Main: FC = memo(() => {
 
   const listsByCity: List[] | undefined = useSelector(
     (state: AppState) => state.city.data?.nsk
+  );
+
+  const isCityGeneralListsLoading = useSelector(
+    (state: AppState) => state.city.meta.loading
   );
 
   useEffect(() => {
@@ -80,6 +85,24 @@ export const Main: FC = memo(() => {
     }
   }, [location, popup.type]);
 
+  const body = useMemo(() => {
+    if (isCityGeneralListsLoading) {
+      return (
+        <div className="border-black bg-gray-100 m-8 px-32 py-32 rounded-md col-span-4 row-span-4">
+          <Loading />
+        </div>
+      );
+    }
+    return mutableListWithAds.map((item, ind) => (
+      <ListPreview
+        key={`${item._id}_${ind}`}
+        onClick={() => openFullscreenMode(item)}
+        position={ind}
+        list={item}
+      />
+    ));
+  }, [isCityGeneralListsLoading, mutableListWithAds]);
+
   return (
     <div className="min-h-screen gap-4 flex flex-col items-center justify-center text-gray-500 relative">
       <section className="absolute top-32 right-32 flex-col flex items-start">
@@ -90,14 +113,7 @@ export const Main: FC = memo(() => {
           <City />
         </div>
         {features.search && <SearchInput />}
-        {mutableListWithAds.map((item, ind) => (
-          <ListPreview
-            key={`${item._id}_${ind}`}
-            onClick={() => openFullscreenMode(item)}
-            position={ind}
-            list={item}
-          />
-        ))}
+        {body}
       </section>
     </div>
   );
