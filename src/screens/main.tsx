@@ -1,5 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { FC, memo, useEffect, useMemo } from "react";
+import React, {
+  FC,
+  memo,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { ListPreview } from "../components/listPreview";
 import { User } from "../components/user";
 import { SearchInput } from "../components/searchInput";
@@ -14,6 +21,8 @@ import { AppState } from "types/state";
 import { getListById } from "state/actions/lists/byId";
 import { fetchListsByCity } from "state/actions/lists/byCity";
 import { Loading } from "svg/loading";
+import { CityCode } from "types/city";
+import { setUserCity } from "state/actions/user";
 
 export const Main: FC = memo(() => {
   const dispatch = useDispatch();
@@ -21,9 +30,17 @@ export const Main: FC = memo(() => {
   const history = useHistory();
   const popup = useSelector((state: AppState) => state.popup);
   const listsInState = useSelector((state: AppState) => state.lists);
+  const lsCityCode = localStorage.getItem("user_last_city") || "nsk";
+  const [cityCode, setCityCode] = useState(lsCityCode);
+
+  const cityChangeHandler = useCallback((newCityCode: CityCode) => {
+    localStorage.setItem("user_last_city", newCityCode);
+    dispatch(setUserCity(newCityCode));
+    setCityCode(newCityCode);
+  }, []);
 
   const listsByCity: List[] | undefined = useSelector(
-    (state: AppState) => state.city.data?.nsk
+    (state: AppState) => state.city.data?.[cityCode]
   );
 
   const isCityGeneralListsLoading = useSelector(
@@ -31,9 +48,14 @@ export const Main: FC = memo(() => {
   );
 
   useEffect(() => {
-    // Сфетчим все топ-списки для города
-    dispatch(fetchListsByCity({ city: "nsk" }));
-  }, []);
+    // Сфетчим все топ-списки для города (если их еще нет в стейте)
+    if (listsByCity?.length) {
+      return;
+    }
+    const city = localStorage.getItem("user_last_city") as CityCode;
+    dispatch(setUserCity(city || "nsk"));
+    dispatch(fetchListsByCity({ city: cityCode }));
+  }, [cityCode]);
 
   const openFullscreenMode = (item: List) => {
     history.push(`/list?id=${item._id}`);
@@ -109,8 +131,11 @@ export const Main: FC = memo(() => {
         <User />
       </section>
       <section className="grid grid-cols-4 p-32 z-base sm:flex sm:flex-col sm:mt-112">
-        <div className="col-span-4">
-          <City />
+        <div className="col-span-4 select-none">
+          <City
+            cityCode={cityCode as CityCode}
+            onCityChange={cityChangeHandler}
+          />
         </div>
         {features.search && <SearchInput />}
         {body}

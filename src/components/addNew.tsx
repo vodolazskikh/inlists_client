@@ -7,7 +7,7 @@ import { LiItem } from "./liItem";
 import Picker from "emoji-picker-react";
 import { useOnClickOutside } from "hooks/useOnClickOutside";
 import { useHistory } from "react-router-dom";
-import { getCurrentUserInfo } from "state/selectors/user";
+import { getCurrentUserInfo, getCurrentCity } from "state/selectors/user";
 
 export const AddNew: FC = memo(() => {
   const history = useHistory();
@@ -25,6 +25,7 @@ export const AddNew: FC = memo(() => {
   const [description, setDescription] = useState("");
   const [emoji, setEmoji] = useState("👑");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const city = useSelector(getCurrentCity);
 
   const pickerRef = useRef(null);
   useOnClickOutside(pickerRef, () => setShowEmojiPicker(false));
@@ -82,7 +83,7 @@ export const AddNew: FC = memo(() => {
         items,
         emoji,
         authorId,
-        city: "Новосибирск",
+        city,
       })
     );
     // Закрываем попап

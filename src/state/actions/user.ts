@@ -1,4 +1,5 @@
 import { Dispatch } from "redux";
+import { CityCode } from "types/city";
 import { apiUrl } from "../../config";
 import { User } from "../../types/user";
 
@@ -8,6 +9,11 @@ export type GetUserInfoAction = {
     | "GET_USER_INFO_STARTED"
     | "GET_USER_INFO_FAILURE";
   payload?: { userInfo: User; error?: string };
+};
+
+export type SetUserCityAction = {
+  type: "SET_USER_CITY";
+  payload: { city: CityCode };
 };
 
 export const getUserInfo = (params: { token: string; userId: string }) => {
@@ -42,5 +48,12 @@ const getUserInfoFailure = (error: any) => ({
   type: "GET_USER_INFO_FAILURE",
   payload: {
     error,
+  },
+});
+
+export const setUserCity = (city: CityCode): SetUserCityAction => ({
+  type: "SET_USER_CITY",
+  payload: {
+    city,
   },
 });

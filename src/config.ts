@@ -16,3 +16,14 @@ export const features = {
   friends: process.env.NODE_ENV === "development",
   favorites: process.env.NODE_ENV === "development",
 };
+
+export const core = {
+  city: [
+    "nsk" as const,
+    "ekb" as const,
+    "spb" as const,
+    "tomsk" as const,
+    "tumen" as const,
+    "kazan" as const,
+  ],
+};

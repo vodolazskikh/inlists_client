@@ -7,3 +7,7 @@ export const getCurrentUserInfo = (state: AppState) => {
 export const getCurrentUserLists = (state: AppState) => {
   return state.user.lists;
 };
+
+export const getCurrentCity = (state: AppState) => {
+  return state.user.city;
+};
