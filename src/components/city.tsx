@@ -58,28 +58,36 @@ export const City: FC<Props> = memo(({ cityCode, onCityChange }) => {
     // );
   }, [onGeoLocationSuccess, onGeoLocationError]);
 
+  const clickHandler = useCallback(
+    (item: CityCode) => {
+      onCityChange(item);
+      setShowCitySelect(false);
+    },
+    [setShowCitySelect, onCityChange]
+  );
+
   const citySelect = useMemo(() => {
     if (!showCitySelect) {
       return null;
     }
 
     return (
-      <nav className="flex flex-wrap absolute top-80 left-32 list-none z-top text-xl">
+      <nav className="sm:inline sm:text-black inline-flex flex-wrap absolute top-80 left-32 list-none z-top text-md">
         {core.city.map((item) => (
           <li
-            className="px-16 rounded-md bg-white cursor-pointer mx-4 my-4 transform hover:scale-105 transition-transform"
+            className="px-16 rounded-md sm:border-black sm:border-2 bg-white cursor-pointer mx-4 my-4 transform hover:scale-105 transition-transform"
             key={item}
-            onClick={() => onCityChange(item)}
+            onClick={() => clickHandler(item)}
           >
             {getNameByCode(item)}
           </li>
         ))}
       </nav>
     );
-  }, [showCitySelect, onCityChange]);
+  }, [showCitySelect, clickHandler]);
 
   return (
-    <div className="relative z-base flex justify-start items-center p-8 w-full">
+    <div className="relative z-top flex justify-start items-center p-8 w-full">
       <div
         className="absolute z-top text-white text-2xl p-32 cursor-pointer"
         onClick={() => setShowCitySelect(!showCitySelect)}
